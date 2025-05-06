@@ -8,7 +8,12 @@ app.use(express.json())
 const tours= JSON.parse(fs.readFileSync(path.join(__dirname,'dev-data','data','tours-simple.json'))) 
 //getting the data by get method and sendng it into response
 
-const getalltours=(req,res)=>{
+app.use((req,res,next)=>{
+    console.log("hello from the middleware ")
+})
+
+
+getalltours=(req,res)=>{
     res.status(200).json({
        status:"success",
        data:tours.length,
@@ -78,3 +83,4 @@ app.listen(port,()=>{
     console.log(`Hey every thing is going well here ${port}`)  
 })
 
+ 
