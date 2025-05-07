@@ -1,18 +1,23 @@
 const express=require('express');
 const fs=require('fs');
-const { get } = require('http');
 const path=require('path');
+const morgan=require('morgan')
 const app=express();
 app.use(express.json())
 //reading the data from json file and parsing it into js object and storing it in tours var
 const tours= JSON.parse(fs.readFileSync(path.join(__dirname,'dev-data','data','tours-simple.json'))) 
-//getting the data by get method and sendng it into response
 
+
+// 1) CREATING MIDDLWARE FUNCTION
 app.use((req,res,next)=>{
     console.log("hello from the middleware ")
+    next()
 })
+app.use(morgan('dev'))
 
 
+
+//2)HADLING THE UNHANDLED ROUTES
 getalltours=(req,res)=>{
     res.status(200).json({
        status:"success",
@@ -22,6 +27,46 @@ getalltours=(req,res)=>{
 }
 
 //getting the data by id and sending it into response
+
+const updateuser=(req,res)=>{
+    res.status(500).json({
+        status:"fail",
+        data:"this route is not yet defined"
+    })
+
+}
+const createuser=(req,res)=>{
+    res.status(500).json({
+        status:"fail",
+        data:"this route is not yet defined"
+    })
+
+}
+
+const getuser=(req,res)=>{
+    res.status(500).json({
+        status:"fail",
+        data:"this route is not yet defined"
+    })
+
+}
+const deleteuser=(req,res)=>{
+    res.status(500).json({
+        status:"fail",
+        data:"this route is not yet defined"
+    })
+
+}
+const allusers=(req,res)=>{
+    res.status(500).json({
+        status:"fail",
+        data:"this route is not yet defined"
+    })
+
+}
+
+
+
 const gettourbyid=(req,res)=>{
     console.log(req.params)
     const id=req.params.id*1
@@ -70,6 +115,7 @@ const creatingtour=(req,res)=>{
 // app.post("/api/v1/tours",creatingtour)
 // app.patch('/api/v1/tours/:id',updaterout)
 
+//CREATING THE ROUTES
 app.route('/api/v1/tours/:id')
 .get(gettourbyid)
 .patch(updaterout);
@@ -77,7 +123,16 @@ app.route('/api/v1/tours')
 .get(getalltours)
 .post(creatingtour)
 
-//creating and listening to the server
+app.route("/api/v1/users")
+.get(allusers)
+.post(createuser)
+
+app.route("/api/v1/users/:id")
+.get(getuser)
+.patch(updateuser)
+.delete(deleteuser)
+
+// STARTING THE SERVER with  port 3001
 const port=3001;
 app.listen(port,()=>{
     console.log(`Hey every thing is going well here ${port}`)  
