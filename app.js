@@ -2,8 +2,15 @@ const express=require('express');
 const fs=require('fs');
 const path=require('path');
 const morgan=require('morgan')
+
+
+//this is comment
 const app=express();
 app.use(express.json())
+const userrouter=express.Router()
+const tourrouter=express.Router()
+app.use('/api/v1/tours',tourrouter)
+app.use('/api/v1/users',userrouter)
 //reading the data from json file and parsing it into js object and storing it in tours var
 const tours= JSON.parse(fs.readFileSync(path.join(__dirname,'dev-data','data','tours-simple.json'))) 
 
@@ -116,18 +123,18 @@ const creatingtour=(req,res)=>{
 // app.patch('/api/v1/tours/:id',updaterout)
 
 //CREATING THE ROUTES
-app.route('/api/v1/tours/:id')
+tourrouter.route('/:id')
 .get(gettourbyid)
 .patch(updaterout);
-app.route('/api/v1/tours')
+tourrouter.route('/')
 .get(getalltours)
 .post(creatingtour)
 
-app.route("/api/v1/users")
+userrouter.route("/")
 .get(allusers)
 .post(createuser)
 
-app.route("/api/v1/users/:id")
+userrouter.route("/:id")
 .get(getuser)
 .patch(updateuser)
 .delete(deleteuser)
