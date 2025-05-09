@@ -4,7 +4,7 @@
   "description": "express,node ,and mongodbprject",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app,js"
+    "dev": "nodemon server.js"
   },
   "author": "haile",
   "license": "ISC",
