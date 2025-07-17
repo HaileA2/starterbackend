@@ -12,10 +12,10 @@ app.use((req,res,next)=>{
     next()
 })
 app.use(morgan('dev'))
-//reading the data from json file and parsing it into js object and storing it in tours var
+//reading the data from json file
+
 app.use('/api/v1/users',userrouter) 
 app.use('/api/v1/tours',tourrouter)
-// STARTING THE SERVER with  port 3001
 module.exports=app
 
  
