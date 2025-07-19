@@ -4,6 +4,7 @@ const app = express()
 const fs = require('fs')
 const path = require('path')
 const tourcontroller = require('../Controller/tourcontroller.js')
+const authcontroller= require('./../Controller/authcontroller.js')
 
 tourrouter.route('/tour-stat')
 .get(tourcontroller.gettourstats)
@@ -15,7 +16,7 @@ tourrouter.route('/:id')
     .delete(tourcontroller.deletetour)
     .patch(tourcontroller.updatetour);
 tourrouter.route('/')
-    .get(tourcontroller.getalltours)
+    .get(authcontroller.protect, tourcontroller.getalltours)
     .post(tourcontroller.creatingtour)
 
 module.exports = tourrouter

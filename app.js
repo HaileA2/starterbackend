@@ -8,7 +8,8 @@ const userrouter=require('./Routers/userrouter.js')
 const app=express();
 app.use(express.json())
 app.use((req,res,next)=>{
-    console.log("hello from the middleware ")
+    console.log(req.headers)
+
     next()
 })
 app.use(morgan('dev'))
